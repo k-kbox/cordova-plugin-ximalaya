@@ -21,24 +21,24 @@
 
         <source-file src="src/android/ximalaya.java" target-dir="app/src/main/java/com/cordova/plugins/ximalaya"/>
 
-        <source-file src="libs/android/armeabi/libmediadatacryto.so" target-dir="app/src/main/jniLibs/armeabi" />
-        <source-file src="libs/android/armeabi/libsoundtouch.so" target-dir="app/src/main/jniLibs/armeabi" />
-        <source-file src="libs/android/armeabi/libxmediaplayer.so" target-dir="app/src/main/jniLibs/armeabi" />
-        <source-file src="libs/android/armeabi/libxmediaplayer_x.so" target-dir="app/src/main/jniLibs/armeabi" />
-        <source-file src="libs/android/armeabi/libxmediaplayerv7.so" target-dir="app/src/main/jniLibs/armeabi" />
-        <source-file src="libs/android/armeabi/libxmopendatacrypto.so" target-dir="app/src/main/jniLibs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libmediadatacryto.so" target-dir="app/src/main/jniLibs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libsoundtouch.so" target-dir="app/src/main/jniLibs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libxmediaplayer.so" target-dir="app/src/main/jniLibs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libxmediaplayer_x.so" target-dir="app/src/main/jniLibs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libxmediaplayerv7.so" target-dir="app/src/main/jniLibs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libxmopendatacrypto.so" target-dir="app/src/main/jniLibs/armeabi" />
 
-        <source-file src="libs/android/arm64-v8a/libxmediaplayerv7.so" target-dir="app/src/main/jniLibs/arm64-v8a" />
+        <source-file src="src/android/libs/arm64-v8a/libxmediaplayerv7.so" target-dir="app/src/main/jniLibs/arm64-v8a" />
 
-        <source-file src="libs/android/gson-2.8.0.jar" target-dir="app/libs" />
-        <source-file src="libs/android/okhttp-3.3.1.jar" target-dir="app/libs" />
-        <source-file src="libs/android/okio-1.8.0.jar" target-dir="app/libs" />
-        <source-file src="libs/android/TingPhoneOpenSDK_5.6.12.jar" target-dir="app/libs" />
-        <source-file src="libs/android/XmDownload_1.6.jar" target-dir="app/libs" />
-        <source-file src="libs/android/XmlyOAuth2SDK_V1.5.jar" target-dir="app/libs" />
+        <source-file src="src/android/libs/gson-2.8.0.jar" target-dir="app/libs" />
+        <source-file src="src/android/libs/okhttp-3.3.1.jar" target-dir="app/libs" />
+        <source-file src="src/android/libs/okio-1.8.0.jar" target-dir="app/libs" />
+        <source-file src="src/android/libs/TingPhoneOpenSDK_5.6.12.jar" target-dir="app/libs" />
+        <source-file src="src/android/libs/XmDownload_1.6.jar" target-dir="app/libs" />
+        <source-file src="src/android/libs/XmlyOAuth2SDK_V1.5.jar" target-dir="app/libs" />
 
 
-        <source-file src="res/android/drawable/next_play_selector_transparent.xml" target-dir="app/src/main/res/drawable" />
+        <source-file src="src/android/res/drawable/next_play_selector_transparent.xml" target-dir="app/src/main/res/drawable" />
 
     </platform>
 </plugin>

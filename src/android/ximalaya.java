@@ -4,6 +4,8 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
 
+import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
