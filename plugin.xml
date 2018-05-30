@@ -21,7 +21,7 @@
 
         <source-file src="src/android/ximalaya.java" target-dir="src/com/cordova/plugins/ximalaya"/>
 
-        <source-file src="libs/android/armeabi/libmediadatacryto.so" target-dir="libs/armeabi" />
+        <source-file src="libs/android/armeabi/libxmediaplayerv7.so" target-dir="libs/armeabi" />
         <source-file src="libs/android/armeabi/libsoundtouch.so" target-dir="libs/armeabi" />
         <source-file src="libs/android/armeabi/libxmediaplayer.so" target-dir="libs/armeabi" />
         <source-file src="libs/android/armeabi/libxmediaplayer_x.so" target-dir="libs/armeabi" />
