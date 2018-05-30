@@ -3,6 +3,8 @@ package com.cordova.plugins.ximalaya;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
+
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +21,23 @@ public class ximalaya extends CordovaPlugin {
             this.coolMethod(message, callbackContext);
             return true;
         }
+        else if (action.equals("init")) {
+            String appKey = args.getString(0);
+            String packId = args.getString(1);
+            String appSecret = args.getString(2);
+            this.init(appKey, packId, appSecret);
+            return true;
+        }
+        else if (action.equals("getCategories")) {
+
+        }
         return false;
+    }
+
+    private void init(String appKey, String packId, String appSecret) {
+        CommonRequest.getInstanse().setAppkey(appKey);
+        CommonRequest.getInstanse().setPackid(packId);
+        CommonRequest.getInstanse().init(cordova.getActivity().getApplicationContext(), appSecret);
     }
 
     private void coolMethod(String message, CallbackContext callbackContext) {
