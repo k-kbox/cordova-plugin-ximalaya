@@ -8,7 +8,7 @@
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="ximalaya">
-                <param name="android-package" value="com.cordova.plugins.ximalaya"/>
+                <param name="android-package" value="com.cordova.plugins.ximalaya.Ximalaya"/>
             </feature>
         </config-file>
         <config-file parent="/*" target="app/src/main/AndroidManifest.xml">
@@ -19,7 +19,7 @@
             <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
         </config-file>
 
-        <source-file src="src/android/ximalaya.java" target-dir="src/com/cordova/plugins/ximalaya"/>
+        <source-file src="src/android/Ximalaya.java" target-dir="src/com/cordova/plugins/ximalaya"/>
 
         <lib-file src="libs/android/armeabi/libmediadatacryto.so" arch="device" />
         <lib-file src="libs/android/armeabi/libsoundtouch.so" arch="device" />
