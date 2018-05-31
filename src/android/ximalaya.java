@@ -64,7 +64,7 @@ public class ximalaya extends CordovaPlugin {
                 }
                 callbackContext.success(json.toString());
             }
-​
+
             @Override
             public void onError(int code, String message) {
                 JSONObject json = new JSONObject();

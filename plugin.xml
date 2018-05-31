@@ -37,8 +37,5 @@
         <source-file src="src/android/libs/XmDownload_1.6.jar" target-dir="app/libs" />
         <source-file src="src/android/libs/XmlyOAuth2SDK_V1.5.jar" target-dir="app/libs" />
 
-
-        <source-file src="src/android/res/drawable/next_play_selector_transparent.xml" target-dir="app/src/main/res/drawable" />
-
     </platform>
 </plugin>
