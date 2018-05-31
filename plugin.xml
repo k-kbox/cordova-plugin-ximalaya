@@ -21,12 +21,14 @@
 
         <source-file src="src/android/Ximalaya.java" target-dir="src/com/cordova/plugins/ximalaya"/>
 
-        <lib-file src="libs/android/armeabi/libmediadatacryto.so" arch="device" />
-        <lib-file src="libs/android/armeabi/libsoundtouch.so" arch="device" />
-        <lib-file src="libs/android/armeabi/libxmediaplayer.so" arch="device" />
-        <lib-file src="libs/android/armeabi/libxmediaplayer_x.so" arch="device" />
-        <lib-file src="libs/android/armeabi/libxmediaplayerv7.so" arch="device"  />
-        <lib-file src="libs/android/armeabi/libxmopendatacrypto.so" arch="device" />
+        <lib-file src="libs/android/armeabi/libmediadatacryto.so" target-dir="libs/armeabi" />
+        <lib-file src="libs/android/armeabi/libsoundtouch.so" target-dir="libs/armeabi" />
+        <lib-file src="libs/android/armeabi/libxmediaplayer.so" target-dir="libs/armeabi" />
+        <lib-file src="libs/android/armeabi/libxmediaplayer_x.so" target-dir="libs/armeabi" />
+        <lib-file src="libs/android/armeabi/libxmediaplayerv7.so" target-dir="libs/armeabi" />
+        <lib-file src="libs/android/armeabi/libxmopendatacrypto.so" target-dir="libs/armeabi" />
+
+        <lib-file src="libs/android/arm64-v8a/libxmediaplayerv7.so" target-dir="libs/arm64-v8a" />
 
         <lib-file src="libs/android/gson-2.8.0.jar" />
         <lib-file src="libs/android/okhttp-3.3.1.jar" />
