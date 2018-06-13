@@ -8,10 +8,10 @@ exports.getCategories = function (arg0, success, error) {
   exec(success, error, 'ximalaya', 'getCategories', [arg0]);
 }
 
-exports.getCategories = function (arg0, success, error) {
+exports.getTags = function (arg0, success, error) {
   exec(success, error, 'ximalaya', 'getTags', [arg0]);
 }
 
-exports.getCategories = function (arg0, arg1, success, error) {
+exports.getAlbumList = function (arg0, arg1, success, error) {
   exec(success, error, 'ximalaya', 'getAlbumList', [arg0, arg1]);
 }
