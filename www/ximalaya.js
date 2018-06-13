@@ -11,7 +11,7 @@ exports.init = function (arg0, arg1, arg2, success, error) {
  * @param suucess
  * @param error
  */
-exports.callApi = function (arg0, arg1, suucess, error) {
+exports.callApi = function (arg0, arg1, success, error) {
   exec(success, error, 'ximalaya', arg0, [arg1]);
 }
 
