@@ -64,6 +64,7 @@ public class Ximalaya extends CordovaPlugin {
                 method.invoke(null, map, createDataCallback(callbackContext));
             }
             catch (Exception e) {
+                e.printStackTrace();
                 JSONObject json = new JSONObject();
                 try {
                     json.put("code", -1);
