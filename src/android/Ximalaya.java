@@ -4,6 +4,7 @@ import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack;
 import com.ximalaya.ting.android.opensdk.model.album.AlbumList;
+import com.ximalaya.ting.android.opensdk.model.album.CategoryRecommendAlbumsList;
 import com.ximalaya.ting.android.opensdk.model.category.CategoryList;
 import com.ximalaya.ting.android.opensdk.model.tag.TagList;
 
@@ -50,18 +51,49 @@ public class Ximalaya extends CordovaPlugin {
             return true;
         }
 
+        if (action.equals("getCategoryRecommendAlbums")) {
+            this.getCategoryRecommendAlbums(args, callbackContext);
+            return true;
+        }
 
         return false;
     }
 
-    private void init(JSONArray args) throws JSONException {
-        String appKey = args.getString(0);
-        String packId = args.getString(1);
-        String appSecret = args.getString(2);
-        CommonRequest.getInstanse().setAppkey(appKey);
-        CommonRequest.getInstanse().setPackid(packId);
-        CommonRequest.getInstanse().init(cordova.getActivity().getApplicationContext(), appSecret);
+    private void getCategoryRecommendAlbums(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put(DTransferConstants.CATEGORY_ID, args.getString(0));
+        map.put("display_count" ,"10");
+        CommonRequest.getCategoryRecommendAlbums(map,
+            new IDataCallBack<CategoryRecommendAlbumsList>() {
+            @Override
+            public void onSuccess(CategoryRecommendAlbumsList object) {
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("code", 0);
+                    json.put("message", "success");
+                    json.put("data", object);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                callbackContext.success(json.toString());
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("code", code);
+                    json.put("message", message);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                callbackContext.error(json.toString());
+            }
+        });
     }
+
     private void getAlbumList(JSONArray args, CallbackContext callbackContext) throws JSONException {
         Map<String, String> map = new HashMap<String, String>();
         map.put(DTransferConstants.CATEGORY_ID, args.getString(0));
@@ -161,6 +193,15 @@ public class Ximalaya extends CordovaPlugin {
                 callbackContext.error(json.toString());
             }
         });
+    }
+
+    private void init(JSONArray args) throws JSONException {
+        String appKey = args.getString(0);
+        String packId = args.getString(1);
+        String appSecret = args.getString(2);
+        CommonRequest.getInstanse().setAppkey(appKey);
+        CommonRequest.getInstanse().setPackid(packId);
+        CommonRequest.getInstanse().init(cordova.getActivity().getApplicationContext(), appSecret);
     }
 
     /*private void coolMethod(String message, CallbackContext callbackContext) {

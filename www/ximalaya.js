@@ -15,3 +15,7 @@ exports.getTags = function (arg0, success, error) {
 exports.getAlbumList = function (arg0, arg1, success, error) {
   exec(success, error, 'ximalaya', 'getAlbumList', [arg0, arg1]);
 }
+
+exports.getCategoryRecommendAlbums = function (arg0, arg1, success, error) {
+  exec(success, error, 'ximalaya', 'getCategoryRecommendAlbums', [arg0, arg1]);
+}
