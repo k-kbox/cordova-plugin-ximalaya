@@ -1,5 +1,6 @@
 package com.cordova.plugins.ximalaya;
 
+import com.google.gson.Gson;
 import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack;
@@ -71,7 +72,7 @@ public class Ximalaya extends CordovaPlugin {
                 try {
                     json.put("code", 0);
                     json.put("message", "success");
-                    json.put("data", object);
+                    json.put("data", new JSONObject(new Gson().toJson(object)));
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -106,7 +107,7 @@ public class Ximalaya extends CordovaPlugin {
                 try {
                     json.put("code", 0);
                     json.put("message", "success");
-                    json.put("data", object);
+                    json.put("data", new JSONObject(new Gson().toJson(object)));
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -140,7 +141,7 @@ public class Ximalaya extends CordovaPlugin {
                 try {
                     json.put("code", 0);
                     json.put("message", "success");
-                    json.put("data", object);
+                    json.put("data", new JSONObject(new Gson().toJson(object)));
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -172,7 +173,7 @@ public class Ximalaya extends CordovaPlugin {
                 try {
                     json.put("code", 0);
                     json.put("message", "success");
-                    json.put("data", object);
+                    json.put("data", new JSONObject(new Gson().toJson(object)));
                 }
                 catch (Exception e) {
                     e.printStackTrace();
