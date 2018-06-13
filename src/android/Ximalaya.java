@@ -3,13 +3,12 @@ package com.cordova.plugins.ximalaya;
 import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack;
+import com.ximalaya.ting.android.opensdk.model.album.AlbumList;
 import com.ximalaya.ting.android.opensdk.model.category.CategoryList;
 import com.ximalaya.ting.android.opensdk.model.tag.TagList;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
-
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +54,7 @@ public class Ximalaya extends CordovaPlugin {
         return false;
     }
 
-    private void init(JSONArray args) {
+    private void init(JSONArray args) throws JSONException {
         String appKey = args.getString(0);
         String packId = args.getString(1);
         String appSecret = args.getString(2);
@@ -63,9 +62,9 @@ public class Ximalaya extends CordovaPlugin {
         CommonRequest.getInstanse().setPackid(packId);
         CommonRequest.getInstanse().init(cordova.getActivity().getApplicationContext(), appSecret);
     }
-    private void getTags(JSONArray args, CallbackContext callbackContext) {
+    private void getAlbumList(JSONArray args, CallbackContext callbackContext) throws JSONException {
         Map<String, String> map = new HashMap<String, String>();
-        map.put(DTransferConstants.CATEGORY_ID, args.getInt(0));
+        map.put(DTransferConstants.CATEGORY_ID, args.getString(0));
         map.put(DTransferConstants.CATEGORY_ID ,"0");
         map.put(DTransferConstants.CALC_DIMENSION ,"1");
         CommonRequest.getAlbumList(map, new IDataCallBack<AlbumList>() {
@@ -75,7 +74,7 @@ public class Ximalaya extends CordovaPlugin {
                 try {
                     json.put("code", 0);
                     json.put("message", "success");
-                    json.put("data", new JSONArray(object.getCategories()));
+                    json.put("data", object);
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -89,7 +88,6 @@ public class Ximalaya extends CordovaPlugin {
                 try {
                     json.put("code", code);
                     json.put("message", message);
-                    json.put("data", new JSONArray());
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -99,18 +97,18 @@ public class Ximalaya extends CordovaPlugin {
         });
     }
 
-    private void getTags(JSONArray args, CallbackContext callbackContext) {
+    private void getTags(JSONArray args, CallbackContext callbackContext) throws JSONException {
         Map<String, String> map = new HashMap<String, String>();
-        map.put(DTransferConstants.CATEGORY_ID, args.getInt(0));
-        map.put(DTransferConstants.TYPE, 0);
+        map.put(DTransferConstants.CATEGORY_ID, args.getString(0));
+        map.put(DTransferConstants.TYPE, "0");
         CommonRequest.getTags(map, new IDataCallBack<TagList>() {
             @Override
-            public void onSuccess(CategoryList object) {
+            public void onSuccess(TagList object) {
                 JSONObject json = new JSONObject();
                 try {
                     json.put("code", 0);
                     json.put("message", "success");
-                    json.put("data", new JSONArray(object.getCategories()));
+                    json.put("data", object);
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -124,7 +122,6 @@ public class Ximalaya extends CordovaPlugin {
                 try {
                     json.put("code", code);
                     json.put("message", message);
-                    json.put("data", new JSONArray());
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -134,7 +131,7 @@ public class Ximalaya extends CordovaPlugin {
         });
     }
 
-    private void getCategories(JSONArray args, CallbackContext callbackContext) {
+    private void getCategories(JSONArray args, CallbackContext callbackContext) throws JSONException {
         Map<String, String> map = new HashMap<String, String>();
         CommonRequest.getCategories(map, new IDataCallBack<CategoryList>() {
             @Override
@@ -143,7 +140,7 @@ public class Ximalaya extends CordovaPlugin {
                 try {
                     json.put("code", 0);
                     json.put("message", "success");
-                    json.put("data", new JSONArray(object.getCategories()));
+                    json.put("data", object);
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -157,7 +154,6 @@ public class Ximalaya extends CordovaPlugin {
                 try {
                     json.put("code", code);
                     json.put("message", message);
-                    json.put("data", new JSONArray());
                 }
                 catch (Exception e) {
                     e.printStackTrace();
