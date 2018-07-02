@@ -2,12 +2,12 @@
 <plugin id="cordova-plugin-ximalaya" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <name>ximalaya</name>
-    <js-module name="ximalaya" src="www/ximalaya.js">
+    <js-module name="Ximalaya" src="www/ximalaya.js">
         <clobbers target="cordova.plugins.ximalaya"/>
     </js-module>
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
-            <feature name="ximalaya">
+            <feature name="Ximalaya">
                 <param name="android-package" value="com.cordova.plugins.ximalaya.Ximalaya"/>
             </feature>
         </config-file>
