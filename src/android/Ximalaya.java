@@ -43,6 +43,15 @@ public class Ximalaya extends CordovaPlugin {
             CommonRequest.getInstanse().setAppkey(appKey);
             CommonRequest.getInstanse().setPackid(packId);
             CommonRequest.getInstanse().init(cordova.getActivity().getApplicationContext(), appSecret);
+            JSONObject json = new JSONObject();
+            try {
+                json.put("code", 0);
+                json.put("message", "success");
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            callbackContext.success(json.toString());
             return true;
         }
         else {
