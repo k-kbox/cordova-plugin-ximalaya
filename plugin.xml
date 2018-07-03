@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
     <name>ximalaya</name>
     <js-module name="Ximalaya" src="www/ximalaya.js">
-        <clobbers target="XimalayaSdk"/>
+        <clobbers target="cordova.plugins.ximalaya"/>
     </js-module>
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
