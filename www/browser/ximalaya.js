@@ -1,9 +1,6 @@
 
-var argscheck = require('cordova/argscheck'),
-  utils = require('cordova/utils');
-
 // import CryptoJS from 'crypto-js';
-var CryptoJS = require('crypto-js');
+var CryptoJS = require('./crypto-js');
 
 // import * as _http from 'http'
 // import * as _https from 'https'
