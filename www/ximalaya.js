@@ -2,7 +2,7 @@ var exec = require('cordova/exec');
 
 var ximalaya = {
 
-  init: function (arg0, arg1, arg2, success, error) {
+  init: function (app_key, pack_id, app_secret, success, error) {
     exec(success, error, 'Ximalaya', 'init', [arg0, arg1, arg2]);
   },
   /**
@@ -12,8 +12,8 @@ var ximalaya = {
    * @param suucess
    * @param error
    */
-  callApi: function (arg0, arg1, success, error) {
-    exec(success, error, 'Ximalaya', arg0, [arg1]);
+  callApi: function (name, opts, success, error) {
+    exec(success, error, 'Ximalaya', name, [opts]);
   }
 
 };
