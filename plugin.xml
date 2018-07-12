@@ -49,14 +49,14 @@
         <source-file src="src/ios/ximalaya.m"/>
     </platform>-->
     <platform name="ios">
-        <js-module src="www/browser/ximalaya.js" name="Ximalaya">
+        <js-module src="www/browser/ximalaya.js" name="iosXimalaya">
             <clobbers target="cordova.plugins.ximalaya" />
         </js-module>
     </platform>
 
     <!-- browser -->
     <platform name="browser">
-        <js-module src="www/browser/ximalaya.js" name="Ximalaya">
+        <js-module src="www/browser/ximalaya.js" name="BrowserXimalaya">
             <clobbers target="cordova.plugins.ximalaya" />
         </js-module>
     </platform>

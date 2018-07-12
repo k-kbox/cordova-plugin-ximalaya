@@ -2,10 +2,12 @@
 var argscheck = require('cordova/argscheck'),
   utils = require('cordova/utils');
 
-import CryptoJS from 'crypto-js';
+// import CryptoJS from 'crypto-js';
+var CryptoJS = require('crypto-js');
 
 // import * as _http from 'http'
-import * as _https from 'https'
+// import * as _https from 'https'
+var _https = require('https');
 
 // const url = 'https://read.k-kbox.com/api/gql';
 
@@ -16,7 +18,8 @@ import * as _https from 'https'
 //   'https:': _https
 // }
 
-import * as _url from 'url'
+// import * as _url from 'url'
+var _url = require('url');
 
 // var accessToken = null;
 // var device_id = null;
