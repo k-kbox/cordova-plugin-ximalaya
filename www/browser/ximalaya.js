@@ -21,6 +21,8 @@ var _url = require('./url');
 // var accessToken = null;
 // var device_id = null;
 
+var Buffer = require('./buffer').Buffer;
+
 // decleare var CryptoJS;
 
 function hashcode(str) {
