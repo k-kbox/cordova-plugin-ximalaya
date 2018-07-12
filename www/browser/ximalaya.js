@@ -21,7 +21,7 @@ var _url = require('./url');
 // var accessToken = null;
 // var device_id = null;
 
-var Buffer = require('./buffer').Buffer;
+// var Buffer = require('./buffer').Buffer;
 
 // decleare var CryptoJS;
 
@@ -103,7 +103,7 @@ function getSignature(opts) {
 
   // console.log(params.join("&"))
 
-  var str = new Buffer(params.join('&')).toString('base64');
+  var str = CryptoJS.enc.Base64.stringify(params.join('&')); // new Buffer(params.join('&')).toString('base64');
   // console.log(str);
 
   var hmac = CryptoJS.HmacSHA1(str, CONFIG.app_secret);
