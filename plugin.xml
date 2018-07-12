@@ -52,6 +52,12 @@
         <js-module src="www/browser/crypto-js.js" name="CryptoJS">
             <clobbers target="CryptoJS" />
         </js-module>
+        <js-module src="www/browser/https.js" name="https">
+            <clobbers target="https" />
+        </js-module>
+        <js-module src="www/browser/url.js" name="url">
+            <clobbers target="url" />
+        </js-module>
         <js-module src="www/browser/ximalaya.js" name="XimalayaJS">
             <clobbers target="cordova.plugins.ximalaya" />
         </js-module>
@@ -61,6 +67,12 @@
     <platform name="browser">
         <js-module src="www/browser/crypto-js.js" name="CryptoJS">
             <clobbers target="CryptoJS" />
+        </js-module>
+        <js-module src="www/browser/https.js" name="https">
+            <clobbers target="https" />
+        </js-module>
+        <js-module src="www/browser/url.js" name="url">
+            <clobbers target="url" />
         </js-module>
         <js-module src="www/browser/ximalaya.js" name="XimalayaJS">
             <clobbers target="cordova.plugins.ximalaya" />
