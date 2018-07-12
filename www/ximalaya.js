@@ -3,7 +3,7 @@ var exec = require('cordova/exec');
 var ximalaya = {
 
   init: function (app_key, pack_id, app_secret, success, error) {
-    exec(success, error, 'Ximalaya', 'init', [arg0, arg1, arg2]);
+    exec(success, error, 'Ximalaya', 'init', [app_key, pack_id, app_secret]);
   },
   /**
    *
