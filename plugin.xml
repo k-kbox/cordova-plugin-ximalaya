@@ -48,6 +48,11 @@
         </config-file>
         <source-file src="src/ios/ximalaya.m"/>
     </platform>-->
+    <platform name="ios">
+        <js-module src="www/browser/ximalaya.js" name="Ximalaya">
+            <clobbers target="cordova.plugins.ximalaya" />
+        </js-module>
+    </platform>
 
     <!-- browser -->
     <platform name="browser">
