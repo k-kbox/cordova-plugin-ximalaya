@@ -394,7 +394,7 @@ function getAccessToken() {
 
     return request("https://api.ximalaya.com/oauth2/secure_access_token", "POST", opts)
       .then(data => {
-        console.log(typeof data, data)
+        // console.log(typeof data, data)
         accessToken = (typeof data === 'string') ? JSON.parse(data) : data;
         accessToken['timestamp'] = timestamp;
         // console.log(accessToken)
