@@ -4,7 +4,7 @@ var CryptoJS = require('./CryptoJS');
 
 // import * as _http from 'http'
 // import * as _https from 'https'
-var _https = require('./https');
+// var _https = require('./https');
 
 // const url = 'https://read.k-kbox.com/api/gql';
 
@@ -16,7 +16,7 @@ var _https = require('./https');
 // }
 
 // import * as _url from 'url'
-var _url = require('./url');
+// var _url = require('./url');
 
 // var accessToken = null;
 // var device_id = null;
@@ -215,6 +215,35 @@ function mergeOptions(api, access_token, options) {
   return opts;
 }
 
+function parseUrl(url) {
+  var a = document.createElement('a');
+  a.href = url;
+
+  return {
+    source: url,
+    protocol: a.protocol.replace(":", ""),
+    host: a.host,
+    port: a.port,
+    query: a.search,
+    params: (function () {
+      var ret = {}, seg = a.search.replace(/^\?/, '').split('&'), len = seg.length, i = 0, s;
+      for (; i < len; i++) {
+        if (!seg[i]) {
+          continue;
+        }
+        s = seg[i].split('=');
+        ret[s[0]] = s[1];
+      }
+      return ret;
+    }),
+    file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+    hash: a.hash.replace('#', ''),
+    path: a.pathname.replace(/^([^\/])/, '/$1'),
+    relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+    segments: a.pathname.replace(/^\//, '').split('/')
+  }
+}
+
 function request(url, method, options) {
   return new Promise((resolve, reject) => {
     // console.log('wx.request', options)
@@ -234,59 +263,82 @@ function request(url, method, options) {
         params.push(k + '=' + options[k]);
       }
 
-      var uri = _url.parse(url);
+      var uri = parseUrl(url);
+
+      var xhr = new XMLHttpRequest()  // 创建异步请求
+      // 异步请求状态发生改变时会执行这个函数
+      xhr.onreadystatechange = function () {
+        // status == 200 用来判断当前HTTP请求完成
+        if ( xhr.readyState == 4 && xhr.status == 200 ) {
+          resolve(JSON.parse(xhr.responseText))  // 标记已完成
+        }
+      }
+      if (method === 'GET') {
+        //连接服务器
+        xhr.open('GET', 'https://read.k-kbox.com/api/ximalaya' + uri.path + (params.length > 0 ? ("?" + paramsToStr(options)) : ""), true);
+        //发送请求
+        xhr.send();
+      } else {
+        //连接服务器
+        xhr.open('POST', 'https://read.k-kbox.com/api/ximalaya' + uri.path, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        //发送请求
+        xhr.send(params.join("&"));
+      }
+
+      // var uri = _url.parse(url);
 
       // console.log(uri);
 
-      var opts = method === 'GET' ? {
-        host: 'read.k-kbox.com', // uri.host,
-        port: 443, // uri.port,
-        path: '/api/ximalaya' + uri.path + (params.length > 0 ? ("?" + paramsToStr(options)) : ""),
-        method: 'GET',
-        // headers: {
-        //   'Content-Type': "text/plain; charset=utf-8",
-        //   'Host': uri.host,
-        //   'Referer': uri.protocol + "://" + uri.host
-        // }
-      } : {
-        host: 'read.k-kbox.com', // uri.host,
-        port: 443, // uri.port,
-        path: '/api/ximalaya' + uri.path,
-        method: 'POST',
-        headers: {
-          'Content-Type': "application/x-www-form-urlencoded",
-          'Content-Length': getUTF8Length(params.join("&")),
-          // 'Host': uri.host,
-          // 'Referer': uri.protocol + "://" + uri.host
-        }
-      };
+      // var opts = method === 'GET' ? {
+      //   host: 'read.k-kbox.com', // uri.host,
+      //   port: 443, // uri.port,
+      //   path: '/api/ximalaya' + uri.path + (params.length > 0 ? ("?" + paramsToStr(options)) : ""),
+      //   method: 'GET',
+      //   // headers: {
+      //   //   'Content-Type': "text/plain; charset=utf-8",
+      //   //   'Host': uri.host,
+      //   //   'Referer': uri.protocol + "://" + uri.host
+      //   // }
+      // } : {
+      //   host: 'read.k-kbox.com', // uri.host,
+      //   port: 443, // uri.port,
+      //   path: '/api/ximalaya' + uri.path,
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': "application/x-www-form-urlencoded",
+      //     'Content-Length': getUTF8Length(params.join("&")),
+      //     // 'Host': uri.host,
+      //     // 'Referer': uri.protocol + "://" + uri.host
+      //   }
+      // };
 
-      var req = /*http[uri.protocol]*/_https.request(opts, function(res) {
-        var body = '';
-        res.setEncoding('utf8');
-        res.on('data', function(data) {
-          // console.log(body);
-          body += data;
-        }).on('end', function() {
-          // console.log(body);
-          // console.log(new Buffer(body).toString('utf-8'));
-          //
-          // cb(body);
-          // resolve(new Buffer(body).toString('utf-8'));
-          resolve(JSON.parse(body))
-        });
-        // res.on('error', function (error) {
-        //   reject(error)
-        // })
-      });
-      req.on('error', (e) => {
-        reject(e);
-      });
-      if (method === 'GET') {
-        req.end()
-      } else {
-        req.end(params.join("&"));
-      }
+      // var req = /*http[uri.protocol]*/_https.request(opts, function(res) {
+      //   var body = '';
+      //   res.setEncoding('utf8');
+      //   res.on('data', function(data) {
+      //     // console.log(body);
+      //     body += data;
+      //   }).on('end', function() {
+      //     // console.log(body);
+      //     // console.log(new Buffer(body).toString('utf-8'));
+      //     //
+      //     // cb(body);
+      //     // resolve(new Buffer(body).toString('utf-8'));
+      //     resolve(JSON.parse(body))
+      //   });
+      //   // res.on('error', function (error) {
+      //   //   reject(error)
+      //   // })
+      // });
+      // req.on('error', (e) => {
+      //   reject(e);
+      // });
+      // if (method === 'GET') {
+      //   req.end()
+      // } else {
+      //   req.end(params.join("&"));
+      // }
 
       // http.request({
       //   url: url,
