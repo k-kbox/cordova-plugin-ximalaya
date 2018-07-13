@@ -258,12 +258,16 @@ function request(url, method, options) {
       resolve(cache[key].data);
     } else*/ {
 
+      var uri = parseUrl(url);
+
       var params = [];
-      for (var k in options) {
+      var k;
+      for (k in options) {
         params.push(k + '=' + options[k]);
       }
-
-      var uri = parseUrl(url);
+      for (k in uri.params) {
+        params.push(k + '=' + options[k]);
+      }
 
       var xhr = new XMLHttpRequest()  // 创建异步请求
       // 异步请求状态发生改变时会执行这个函数
