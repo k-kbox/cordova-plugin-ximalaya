@@ -261,11 +261,7 @@ function request(url, method, options) {
       var uri = parseUrl(url);
 
       var params = [];
-      var k;
-      for (k in options) {
-        params.push(k + '=' + options[k]);
-      }
-      for (k in uri.params) {
+      for (var k in options) {
         params.push(k + '=' + options[k]);
       }
 
@@ -279,12 +275,13 @@ function request(url, method, options) {
       }
       if (method === 'GET') {
         //连接服务器
-        xhr.open('GET', 'https://read.k-kbox.com/api/ximalaya' + uri.path + (params.length > 0 ? ("?" + paramsToStr(options)) : ""), true);
+        xhr.open('GET', 'https://read.k-kbox.com/api/ximalaya' + uri.relative
+          + (params.length > 0 ? ((uri.query.length > 0 ? "&" : "?") + paramsToStr(options)) : ""), true);
         //发送请求
         xhr.send();
       } else {
         //连接服务器
-        xhr.open('POST', 'https://read.k-kbox.com/api/ximalaya' + uri.path, true);
+        xhr.open('POST', 'https://read.k-kbox.com/api/ximalaya' + uri.relative, true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         //发送请求
         xhr.send(params.join("&"));
