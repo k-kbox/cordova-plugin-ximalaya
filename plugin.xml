@@ -13,29 +13,38 @@
                 <param name="android-package" value="com.cordova.plugins.ximalaya.Ximalaya"/>
             </feature>
         </config-file>
-        <config-file parent="/*" target="app/src/main/AndroidManifest.xml">
+        <config-file parent="/*" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
             <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
         </config-file>
+
         <source-file src="src/android/Ximalaya.java" target-dir="src/com/cordova/plugins/ximalaya"/>
+
         <lib-file src="libs/android/gson-2.8.0.jar"/>
         <lib-file src="libs/android/okhttp-3.3.1.jar"/>
         <lib-file src="libs/android/okio-1.8.0.jar"/>
         <lib-file src="libs/android/TingPhoneOpenSDK_5.6.12.jar"/>
-        <lib-file src="libs/android/XmDownload_1.6.jar"/>
-        <lib-file src="libs/android/XmlyOAuth2SDK_V1.5.jar"/>
+        <!--<lib-file src="libs/android/XmDownload_1.6.jar"/>
+        <lib-file src="libs/android/XmlyOAuth2SDK_V1.5.jar"/>-->
+
         <resource-file src="libs/android/armeabi/libmediadatacryto.so" target="jniLibs/armeabi/libmediadatacryto.so"/>
         <resource-file src="libs/android/armeabi/libsoundtouch.so" target="jniLibs/armeabi/libsoundtouch.so"/>
-        <resource-file src="libs/android/armeabi/libxmediaplayer.so" target="jniLibs/armeabi/libxmediaplayer.so"/>
+        <!--<resource-file src="libs/android/armeabi/libxmediaplayer.so" target="jniLibs/armeabi/libxmediaplayer.so"/>
         <resource-file src="libs/android/armeabi/libxmediaplayer_x.so" target="jniLibs/armeabi/libxmediaplayer_x.so"/>
-        <resource-file src="libs/android/armeabi/libxmediaplayerv7.so" target="jniLibs/armeabi/libxmediaplayerv7.so"/>
+        <resource-file src="libs/android/armeabi/libxmediaplayerv7.so" target="jniLibs/armeabi/libxmediaplayerv7.so"/>-->
         <resource-file src="libs/android/armeabi/libxmopendatacrypto.so"
                        target="jniLibs/armeabi/libxmopendatacrypto.so"/>
-        <resource-file src="libs/android/arm64-v8a/libxmediaplayerv7.so"
-                       target="jniLibs/arm64-v8a/libxmediaplayerv7.so"/>
+        <!--<resource-file src="libs/android/arm64-v8a/libxmediaplayerv7.so"
+                       target="jniLibs/arm64-v8a/libxmediaplayerv7.so"/>-->
+
+        <resource-file src="libs/android/armeabi/libmediadatacryto.so" target="jniLibs/armeabi-v7a/libmediadatacryto.so"/>
+        <resource-file src="libs/android/armeabi/libsoundtouch.so" target="jniLibs/armeabi-v7a/libsoundtouch.so"/>
+        <resource-file src="libs/android/armeabi/libxmopendatacrypto.so"
+                       target="jniLibs/armeabi-v7a/libxmopendatacrypto.so"/>
+
         <resource-file src="res/android/values/styles.xml" target="res/values/styles.xml"/>
     </platform>
 

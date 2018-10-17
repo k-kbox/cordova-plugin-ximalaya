@@ -37,53 +37,76 @@ public class Ximalaya extends CordovaPlugin {
 
         if (action.equals("init")) {
 //            this.init(args);
-            String appKey = args.getString(0);
-            String packId = args.getString(1);
-            String appSecret = args.getString(2);
-            CommonRequest.getInstanse().setAppkey(appKey);
-            CommonRequest.getInstanse().setPackid(packId);
-            CommonRequest.getInstanse().init(cordova.getActivity().getApplicationContext(), appSecret);
-            JSONObject json = new JSONObject();
-            try {
-                json.put("code", 0);
-                json.put("message", "success");
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            callbackContext.success(json.toString());
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    try {
+                        String appKey = args.getString(0);
+                        String packId = args.getString(1);
+                        String appSecret = args.getString(2);
+                        CommonRequest.getInstanse().setAppkey(appKey);
+                        CommonRequest.getInstanse().setPackid(packId);
+                        CommonRequest.getInstanse().init(cordova.getActivity().getApplicationContext(), appSecret);
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("code", 0);
+                            json.put("message", "success");
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        callbackContext.success(json.toString());
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("code", -1);
+                            json.put("message", e.getMessage());
+                        }
+                        catch (Exception e1) {
+                            e.printStackTrace();
+                        }
+                        callbackContext.error(json.toString());
+                    }
+                }
+            });
             return true;
         }
         else {
-            try {
-                Method method = CommonRequest.class.getDeclaredMethod(action, Map.class, IDataCallBack.class);
-                Map<String, String> map = new HashMap<String, String>();
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
 
-                if (args.length() > 0) {
-                    JSONObject j = new JSONObject(args.getString(0));
-                    Iterator<String> iter = j.keys();
-                    while (iter.hasNext()) {
-                        String k = iter.next();
-                        map.put(k, j.optString(k, ""));
+                    try {
+                        Method method = CommonRequest.class.getDeclaredMethod(action, Map.class, IDataCallBack.class);
+                        Map<String, String> map = new HashMap<String, String>();
+
+                        if (args.length() > 0) {
+                            JSONObject j = new JSONObject(args.getString(0));
+                            Iterator<String> iter = j.keys();
+                            while (iter.hasNext()) {
+                                String k = iter.next();
+                                map.put(k, j.optString(k, ""));
+                            }
+                        }
+        //                map.put(DTransferConstants.ALBUM_ID, args.getString(0));
+        //                map.put(DTransferConstants.SORT, "asc");
+        //                map.put(DTransferConstants.PAGE, args.getString(1));
+                        method.invoke(null, map, createDataCallback(callbackContext));
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("code", -1);
+                            json.put("message", e.getMessage());
+                        }
+                        catch (Exception e1) {
+                            e.printStackTrace();
+                        }
+                        callbackContext.error(json.toString());
                     }
                 }
-//                map.put(DTransferConstants.ALBUM_ID, args.getString(0));
-//                map.put(DTransferConstants.SORT, "asc");
-//                map.put(DTransferConstants.PAGE, args.getString(1));
-                method.invoke(null, map, createDataCallback(callbackContext));
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-                JSONObject json = new JSONObject();
-                try {
-                    json.put("code", -1);
-                    json.put("message", e.getMessage());
-                }
-                catch (Exception e1) {
-                    e.printStackTrace();
-                }
-                callbackContext.error(json.toString());
-            }
+            });
             return true;
         }
 
