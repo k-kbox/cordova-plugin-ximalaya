@@ -14,7 +14,7 @@ var ximalaya = {
    */
   callApi: function (name, opts, success, error) {
     // exec(success, error, 'Ximalaya', name, [opts]);
-    exec((data) => {
+    exec(function (data) {
       var d = JSON.parse(data);
       if (d.code === 0) {
         // console.log(d.data)
@@ -27,7 +27,7 @@ var ximalaya = {
       } else {
         success && success(d)
       }
-    }, (err) => {
+    }, function (err) {
       error && error(err);
     }, 'Ximalaya', name, [opts]);
   }

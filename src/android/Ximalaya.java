@@ -22,13 +22,20 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import android.util.Log;
+
 /**
  * This class echoes a string called from JavaScript.
  */
 public class Ximalaya extends CordovaPlugin {
 
+    public static final String TAG = "Cordova.Plugin.Ximalaya";
+
     @Override
     public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
+
+        Log.d(TAG, String.format("%s is called. Callback ID: %s. args: %s", action, callbackContext.getCallbackId(), args.toString()));
+
         /*if (action.equals("coolMethod")) {
             String message = args.getString(0);
             this.coolMethod(message, callbackContext);
