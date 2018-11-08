@@ -4,6 +4,11 @@ import com.google.gson.Gson;
 //import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack;
+import com.ximalaya.ting.android.opensdk.model.PlayableModel;
+import com.ximalaya.ting.android.opensdk.model.track.Track;
+import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
+import com.ximalaya.ting.android.opensdk.player.service.IXmPlayerStatusListener;
+import com.ximalaya.ting.android.opensdk.player.service.XmPlayerException;
 //import com.ximalaya.ting.android.opensdk.model.album.AlbumList;
 //import com.ximalaya.ting.android.opensdk.model.album.CategoryRecommendAlbumsList;
 //import com.ximalaya.ting.android.opensdk.model.category.CategoryList;
@@ -13,13 +18,17 @@ import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
+import org.apache.cordova.LOG;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import android.util.Log;
@@ -31,17 +40,34 @@ public class Ximalaya extends CordovaPlugin {
 
     public static final String TAG = "Cordova.Plugin.Ximalaya";
 
+    private CallbackContext messageChannel;
+
+    private XmPlayerManager player;
+
+    @Override
+    protected void pluginInitialize() {
+
+        super.pluginInitialize();
+
+        Log.d(TAG, "plugin initialized.");
+    }
+
+    @Override
+    public void onDestroy() {
+        XmPlayerManager.release();
+        super.onDestroy();
+    }
+
     @Override
     public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
-
-        Log.d(TAG, String.format("%s is called. Callback ID: %s. args: %s", action, callbackContext.getCallbackId(), args.toString()));
+        Log.d(TAG, String.format("%s is called. Callback ID: %s. args: %s",
+                action, callbackContext.getCallbackId(), args.toString()));
 
         /*if (action.equals("coolMethod")) {
             String message = args.getString(0);
             this.coolMethod(message, callbackContext);
             return true;
         }*/
-
         if (action.equals("init")) {
 //            this.init(args);
             cordova.getThreadPool().execute(new Runnable() {
@@ -53,6 +79,9 @@ public class Ximalaya extends CordovaPlugin {
                         CommonRequest.getInstanse().setAppkey(appKey);
                         CommonRequest.getInstanse().setPackid(packId);
                         CommonRequest.getInstanse().init(cordova.getActivity().getApplicationContext(), appSecret);
+
+                        initPlayer();
+
                         JSONObject json = new JSONObject();
                         try {
                             json.put("code", 0);
@@ -77,6 +106,95 @@ public class Ximalaya extends CordovaPlugin {
                     }
                 }
             });
+            return true;
+        }
+        else if (action.startsWith("player.")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    try {
+                        String name = action.substring(7);
+                        Log.e(TAG, "call player " + name);
+
+                        getPlayer();
+
+                        if (name.equals("play")) {
+                            if (args.length() > 0) {
+                                int idx = args.getInt(0);
+                                getPlayer().play(idx);
+                            } else {
+                                getPlayer().play();
+                            }
+                        }
+                        else if (name.equals("stop")) {
+                            getPlayer().stop();
+                        }
+                        else if (name.equals("seek")) {
+                            int pos = args.getInt(0);
+                            getPlayer().seekTo(pos);
+                        }
+                        else if (name.equals("current")) {
+                            int pos = getPlayer().getPlayCurrPositon();
+                            callbackContext.success(pos);
+                        }
+                        else if (name.equals("duration")) {
+                            int duraton = getPlayer().getDuration();
+                            callbackContext.success(duraton);
+                        }
+                        else if (name.equals("onStatus")) {
+                            setPlayerListener();
+                        }
+                        else {
+                            callbackContext.error("no action");
+                        }
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("code", -1);
+                            json.put("message", e.getMessage());
+                        }
+                        catch (Exception e1) {
+                            e.printStackTrace();
+                        }
+                        callbackContext.error(json.toString());
+                    }
+                }
+            });
+            return true;
+        }
+        else if (action.equals("playList")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    try {
+                        JSONArray arr = args.getJSONArray(0);
+        //                List<Track> list = new Gson().fromJson(arr.toString(), List.class);
+                        List<Track> list = new ArrayList<>();
+                        for (int i = 0; i < arr.length(); i++) {
+                            list.add(new Gson().fromJson(arr.getJSONObject(i).toString(), Track.class));
+                        }
+                        int idx = args.getInt(1);
+                        Log.e(TAG, "startIndex: " + idx + ", title: " + list.get(idx).getTrackTitle());
+                        getPlayer().playList(list, idx);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("code", -1);
+                            json.put("message", e.getMessage());
+                        }
+                        catch (Exception e1) {
+                            e.printStackTrace();
+                        }
+                        callbackContext.error(json.toString());
+                    }
+                }
+            });
+            return true;
+        }
+        else if (action.equals("messageChannel")) {
+            messageChannel = callbackContext;
             return true;
         }
         else {
@@ -198,6 +316,49 @@ public class Ximalaya extends CordovaPlugin {
 //        CommonRequest.getInstanse().init(cordova.getActivity().getApplicationContext(), appSecret);
 //    }
 
+    private void sendStatusChange(int messageType, Integer additionalCode, String value) {
+        Log.e(TAG, "sendStatusChange " + value);
+        if (additionalCode != null && value != null) {
+            throw new IllegalArgumentException("Only one of additionalCode or value can be specified, not both");
+        }
+
+        JSONObject statusDetails = new JSONObject();
+        try {
+            statusDetails.put("id", -1);
+            statusDetails.put("msgType", messageType);
+            if (additionalCode != null) {
+                JSONObject code = new JSONObject();
+                code.put("code", additionalCode.intValue());
+                statusDetails.put("value", code);
+            }
+            else if (value != null) {
+                statusDetails.put("value", value);
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, "Failed to create status details", e);
+        }
+
+        this.sendEventMessage("status", statusDetails);
+    }
+
+    void sendEventMessage(String action, JSONObject actionData) {
+        JSONObject message = new JSONObject();
+        try {
+            message.put("action", action);
+            if (actionData != null) {
+                message.put(action, actionData);
+            }
+        } catch (JSONException e) {
+            LOG.e(TAG, "Failed to create event message", e);
+        }
+
+        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, message);
+        pluginResult.setKeepCallback(true);
+        if (messageChannel != null) {
+            messageChannel.sendPluginResult(pluginResult);
+        }
+    }
+
     private IDataCallBack<?> createDataCallback(CallbackContext callbackContext) {
         return new IDataCallBack<Object>() {
             @Override
@@ -229,7 +390,74 @@ public class Ximalaya extends CordovaPlugin {
         };
     }
 
+    private XmPlayerManager getPlayer() {
+        return XmPlayerManager.getInstance(cordova.getActivity());
+    }
 
+    private void initPlayer() {
+        Log.e(TAG, "init player");
+        getPlayer().init();
+    }
+
+    private void setPlayerListener() {
+        Log.e(TAG, "add player listener");
+        getPlayer().addPlayerStatusListener(new IXmPlayerStatusListener() {
+            @Override
+            public void onPlayStart() {
+                sendStatusChange(0, null, "start");
+            }
+
+            @Override
+            public void onPlayPause() {
+                sendStatusChange(0, null, "pause");
+            }
+
+            @Override
+            public void onPlayStop() {
+                sendStatusChange(0, null, "stop");
+            }
+
+            @Override
+            public void onSoundPlayComplete() {
+                sendStatusChange(0, null, "complete");
+            }
+
+            @Override
+            public void onSoundPrepared() {
+                sendStatusChange(0, null, "prepared");
+            }
+
+            @Override
+            public void onSoundSwitch(PlayableModel playableModel, PlayableModel playableModel1) {
+                sendStatusChange(0, null, "switch");
+            }
+
+            @Override
+            public void onBufferingStart() {
+                sendStatusChange(0, null, "buffer-start");
+            }
+
+            @Override
+            public void onBufferingStop() {
+                sendStatusChange(0, null, "buffer-stop");
+            }
+
+            @Override
+            public void onBufferProgress(int i) {
+                sendStatusChange(0, null, "buffer-progress");
+            }
+
+            @Override
+            public void onPlayProgress(int i, int i1) {
+                sendStatusChange(0, null, "progress");
+            }
+
+            @Override
+            public boolean onError(XmPlayerException e) {
+                return false;
+            }
+        });
+    }
 
     /*private void coolMethod(String message, CallbackContext callbackContext) {
         if (message != null && message.length() > 0) {

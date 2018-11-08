@@ -19,6 +19,13 @@
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
             <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+        </config-file>
+
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <service android:name="com.ximalaya.ting.android.opensdk.player.service.XmPlayerService"
+            android:process=":player"/>
         </config-file>
 
         <source-file src="src/android/Ximalaya.java" target-dir="src/com/cordova/plugins/ximalaya"/>
@@ -32,9 +39,8 @@
 
         <resource-file src="libs/android/armeabi/libmediadatacryto.so" target="jniLibs/armeabi/libmediadatacryto.so"/>
         <resource-file src="libs/android/armeabi/libsoundtouch.so" target="jniLibs/armeabi/libsoundtouch.so"/>
-        <!--<resource-file src="libs/android/armeabi/libxmediaplayer.so" target="jniLibs/armeabi/libxmediaplayer.so"/>
-        <resource-file src="libs/android/armeabi/libxmediaplayer_x.so" target="jniLibs/armeabi/libxmediaplayer_x.so"/>
-        <resource-file src="libs/android/armeabi/libxmediaplayerv7.so" target="jniLibs/armeabi/libxmediaplayerv7.so"/>-->
+        <resource-file src="libs/android/armeabi/libxmediaplayer.so" target="jniLibs/armeabi/libxmediaplayer.so"/>
+        <!--<resource-file src="libs/android/armeabi/libxmediaplayer_x.so" target="jniLibs/armeabi/libxmediaplayer_x.so"/>-->
         <resource-file src="libs/android/armeabi/libxmopendatacrypto.so"
                        target="jniLibs/armeabi/libxmopendatacrypto.so"/>
         <!--<resource-file src="libs/android/arm64-v8a/libxmediaplayerv7.so"
@@ -42,6 +48,7 @@
 
         <resource-file src="libs/android/armeabi/libmediadatacryto.so" target="jniLibs/armeabi-v7a/libmediadatacryto.so"/>
         <resource-file src="libs/android/armeabi/libsoundtouch.so" target="jniLibs/armeabi-v7a/libsoundtouch.so"/>
+        <resource-file src="libs/android/armeabi/libxmediaplayerv7.so" target="jniLibs/armeabi-v7a/libxmediaplayerv7.so"/>
         <resource-file src="libs/android/armeabi/libxmopendatacrypto.so"
                        target="jniLibs/armeabi-v7a/libxmopendatacrypto.so"/>
 
