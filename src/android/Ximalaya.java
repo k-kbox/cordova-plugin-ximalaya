@@ -118,7 +118,7 @@ public class Ximalaya extends CordovaPlugin {
                         getPlayer();
 
                         if (name.equals("play")) {
-                            if (args.length() > 0) {
+                            if (args.length() > 0 && !args.isNull(0) && args.get(0) != null) {
                                 int idx = args.getInt(0);
                                 getPlayer().play(idx);
                             } else {
