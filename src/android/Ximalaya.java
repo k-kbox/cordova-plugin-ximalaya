@@ -125,6 +125,9 @@ public class Ximalaya extends CordovaPlugin {
                                 getPlayer().play();
                             }
                         }
+                        else if (name.equals("pause")) {
+                            getPlayer().pause();
+                        }
                         else if (name.equals("stop")) {
                             getPlayer().stop();
                         }
