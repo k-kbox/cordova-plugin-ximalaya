@@ -190,6 +190,45 @@ const API_LIST = {
       device_type: "2"
     }
   },
+  getAllPaidAlbums: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/all_paid_albums'
+  },
+  getPaidTags: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/tags'
+  },
+  getPaidAlbumByTag: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/paid_albums_by_tag'
+  },
+  getPaidTrackByAlbum: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/browse_paid_album_tracks'
+  },
+  batchGetPaidAlbum: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/batch_get_paid_albums'
+  },
+  batchPaidTracks: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/batch_get_paid_tracks'
+  },
+  getPaidRank: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/paid_content_ranks'
+  },
+  getRankAlbums: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/rank_albums'
+  },
+  getBoughtAlbums: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/get_bought_albums'
+  },
+  getBoughtAlbumStatus: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/album_bought_status'
+  },
+  getBoughtTrackStatus: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/track_bought_status'
+  },
+  searchPaidAlbums: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/search_paid_albums'
+  },
+  searchPaidTracks: {
+    url: 'http://api.ximalaya.com/openapi-gateway-app/open_pay/search_paid_tracks'
+  }
 }
 
 function mergeOptions(api, access_token, options) {

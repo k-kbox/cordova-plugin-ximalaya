@@ -2,11 +2,18 @@ package com.cordova.plugins.ximalaya;
 
 import com.google.gson.Gson;
 //import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
+import com.ximalaya.ting.android.opensdk.auth.call.IXmlyAuthListener;
+import com.ximalaya.ting.android.opensdk.auth.exception.XmlyException;
+import com.ximalaya.ting.android.opensdk.auth.handler.XmlySsoHandler;
+import com.ximalaya.ting.android.opensdk.auth.model.XmlyAuth2AccessToken;
+import com.ximalaya.ting.android.opensdk.auth.model.XmlyAuthInfo;
+import com.ximalaya.ting.android.opensdk.datatrasfer.AccessTokenManager;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack;
 import com.ximalaya.ting.android.opensdk.model.PlayableModel;
 import com.ximalaya.ting.android.opensdk.model.track.Track;
 import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
+import com.ximalaya.ting.android.opensdk.player.constants.PlayerConstants;
 import com.ximalaya.ting.android.opensdk.player.service.IXmPlayerStatusListener;
 import com.ximalaya.ting.android.opensdk.player.service.XmPlayerException;
 //import com.ximalaya.ting.android.opensdk.model.album.AlbumList;
@@ -31,6 +38,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import android.app.AlertDialog;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 /**
@@ -43,6 +53,18 @@ public class Ximalaya extends CordovaPlugin {
     private CallbackContext messageChannel;
 
     private XmPlayerManager player;
+
+    /**
+     * 喜马拉雅授权实体类对象
+     */
+    private XmlyAuthInfo authInfo;
+
+    /**
+     * 喜马拉雅授权管理类对象
+     */
+    private XmlySsoHandler ssoHandler;
+
+    public static final String REDIRECT_URL =  "https://read.k-kbox.com/api/ximalaya/validate_third_token";
 
     @Override
     protected void pluginInitialize() {
@@ -80,6 +102,11 @@ public class Ximalaya extends CordovaPlugin {
                         CommonRequest.getInstanse().setPackid(packId);
                         CommonRequest.getInstanse().init(cordova.getActivity().getApplicationContext(), appSecret);
 
+                        authInfo = new XmlyAuthInfo(cordova.getActivity(),
+                                appKey, packId, REDIRECT_URL, appKey);
+
+                        ssoHandler = new XmlySsoHandler(cordova.getActivity(), authInfo);
+
                         initPlayer();
 
                         JSONObject json = new JSONObject();
@@ -101,6 +128,86 @@ public class Ximalaya extends CordovaPlugin {
                         }
                         catch (Exception e1) {
                             e.printStackTrace();
+                        }
+                        callbackContext.error(json.toString());
+                    }
+                }
+            });
+            return true;
+        }
+        else if (action.equals("oauth2")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    try {
+                        String third_uid = args.getString(0);
+                        String third_token = args.getString(0);
+
+                        if (TextUtils.isEmpty(AccessTokenManager.getInstanse().getThirdToken())) {
+//                            Bundle bundle = ssoHandler.authorizeByThirdSync(third_uid, third_token);
+//                            XmlyAuth2AccessToken accessToken = XmlyAuth2AccessToken.parseAccessToken(bundle);
+//                            if (accessToken.isSessionValid()) {
+//                                /**
+//                                 * 如果是第三方登录方式需要使用如下方式
+//                                 */
+//                                AccessTokenManager.getInstanse().setAccessTokenAndUidByThirdType(accessToken.getToken(),
+//                                        accessToken.getExpiresAt(), third_uid, third_token);
+//                            }
+
+                            ssoHandler.authorizeByThird(third_uid, third_token, new IXmlyAuthListener() {
+                                @Override
+                                public void onComplete(Bundle bundle) {
+                                    XmlyAuth2AccessToken accessToken = XmlyAuth2AccessToken.parseAccessToken(bundle);
+                                    if (accessToken.isSessionValid()) {
+                                        /**
+                                         * 如果是第三方登录方式需要使用如下方式
+                                         */
+                                        AccessTokenManager.getInstanse().setAccessTokenAndUidByThirdType(accessToken.getToken(),
+                                                accessToken.getExpiresAt(), third_uid, third_token);
+                                    }
+                                    callbackContext.success(bundle.toString());
+                                }
+
+                                @Override
+                                public void onXmlyException(XmlyException e) {
+                                    e.printStackTrace();
+                                    JSONObject json = new JSONObject();
+                                    try {
+                                        json.put("code", -1);
+                                        json.put("message", e.getMessage());
+                                    }
+                                    catch (Exception e1) {
+                                        e1.printStackTrace();
+                                    }
+                                    callbackContext.error(json.toString());
+                                }
+
+                                @Override
+                                public void onCancel() {
+                                    JSONObject json = new JSONObject();
+                                    try {
+                                        json.put("code", -1);
+                                        json.put("message", "cancel");
+                                    }
+                                    catch (Exception e1) {
+                                        e1.printStackTrace();
+                                    }
+                                    callbackContext.error(json.toString());
+                                }
+                            });
+                        }
+                        else {
+                            callbackContext.success(AccessTokenManager.getInstanse().getAccessToken());
+                        }
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("code", -1);
+                            json.put("message", e.getMessage());
+                        }
+                        catch (Exception e1) {
+                            e1.printStackTrace();
                         }
                         callbackContext.error(json.toString());
                     }
@@ -431,7 +538,16 @@ public class Ximalaya extends CordovaPlugin {
             }
 
             @Override
-            public void onSoundSwitch(PlayableModel playableModel, PlayableModel playableModel1) {
+            public void onSoundSwitch(PlayableModel lastModel, PlayableModel curModel) {
+                if (curModel == null && lastModel instanceof Track) {
+                    // isAudition 表示是否为部分试听声音
+                    if (((Track) lastModel).isAudition() &&
+                            XmPlayerManager.getInstance(cordova.getActivity().getApplicationContext()).getPlayerStatus() == PlayerConstants.STATE_IDLE) {
+                        // 这里面写入试听结束后的代码,比如可以引导用户进行购买等操作
+                        Log.e(TAG, "试听结束");
+                        new AlertDialog.Builder(cordova.getActivity()).setMessage("试听结束").setNeutralButton("确定", null).create().show();
+                    }
+                }
                 sendStatusChange(0, null, "switch");
             }
 

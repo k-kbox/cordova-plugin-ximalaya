@@ -26,6 +26,15 @@
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <service android:name="com.ximalaya.ting.android.opensdk.player.service.XmPlayerService"
             android:process=":player"/>
+
+            <activity android:configChanges="keyboardHidden|orientation"
+                      android:exported="false"
+                      android:name="com.ximalaya.ting.android.xmpayordersdk.XmPayOrderActivity"
+                      android:windowSoftInputMode="adjustResize" />
+            <activity android:configChanges="keyboardHidden|orientation"
+                      android:exported="false"
+                      android:name="com.ximalaya.ting.android.opensdk.auth.component.XmlyBrowserComponent"
+                      android:windowSoftInputMode="adjustResize" />
         </config-file>
 
         <source-file src="src/android/Ximalaya.java" target-dir="src/com/cordova/plugins/ximalaya"/>
@@ -34,8 +43,8 @@
         <lib-file src="libs/android/okhttp-3.3.1.jar"/>
         <lib-file src="libs/android/okio-1.8.0.jar"/>
         <lib-file src="libs/android/TingPhoneOpenSDK_5.6.12.jar"/>
-        <!--<lib-file src="libs/android/XmDownload_1.6.jar"/>
-        <lib-file src="libs/android/XmlyOAuth2SDK_V1.5.jar"/>-->
+        <!--<lib-file src="libs/android/XmDownload_1.6.jar"/>-->
+        <lib-file src="libs/android/XmlyOAuth2SDK_V1.5.jar"/>
 
         <resource-file src="libs/android/armeabi/libmediadatacryto.so" target="jniLibs/armeabi/libmediadatacryto.so"/>
         <resource-file src="libs/android/armeabi/libsoundtouch.so" target="jniLibs/armeabi/libsoundtouch.so"/>

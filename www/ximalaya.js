@@ -52,6 +52,9 @@ var ximalaya = {
         console.error("Received Ximalaya.onStatus callback for unknown media :: " + id);
       }
     }
+  },
+  oauth2: function (third_uid, third_token, success, error) {
+    exec(success, error, 'Ximalaya', 'oauth2', [third_uid, third_token]);
   }
 };
 
