@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="cordova-plugin-ximalaya" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        xmlns:android="http://schemas.android.com/apk/src/android/res">
     <name>ximalaya</name>
     <js-module name="Ximalaya" src="www/ximalaya.js">
         <clobbers target="cordova.plugins.ximalaya"/>
@@ -39,94 +39,94 @@
 
         <source-file src="src/android/Ximalaya.java" target-dir="src/com/cordova/plugins/ximalaya"/>
 
-        <lib-file src="libs/android/gson-2.8.0.jar"/>
-        <lib-file src="libs/android/okhttp-3.3.1.jar"/>
-        <lib-file src="libs/android/okio-1.8.0.jar"/>
-        <lib-file src="libs/android/TingPhoneOpenSDK_6.1.4.jar"/>
-        <!--<lib-file src="libs/android/XmDownload_1.6.jar"/>-->
-        <lib-file src="libs/android/XmlyOAuth2SDK_V1.8.jar"/>
+        <lib-file src="src/android/libs/gson-2.8.0.jar"/>
+        <lib-file src="src/android/libs/okhttp-3.3.1.jar"/>
+        <lib-file src="src/android/libs/okio-1.8.0.jar"/>
+        <lib-file src="src/android/libs/TingPhoneOpenSDK_6.1.4.jar"/>
+        <!--<lib-file src="src/android/libs/XmDownload_1.6.jar"/>-->
+        <lib-file src="src/android/libs/XmlyOAuth2SDK_V1.8.jar"/>
 
-        <resource-file src="libs/android/armeabi/libmediadatacryto.so" target="jniLibs/armeabi/libmediadatacryto.so"/>
-        <resource-file src="libs/android/armeabi/libsoundtouch.so" target="jniLibs/armeabi/libsoundtouch.so"/>
-        <resource-file src="libs/android/armeabi/libxmediaplayer.so" target="jniLibs/armeabi/libxmediaplayer.so"/>
-        <!--<resource-file src="libs/android/armeabi/libxmediaplayer_x.so" target="jniLibs/armeabi/libxmediaplayer_x.so"/>-->
-        <resource-file src="libs/android/armeabi/libxmopendatacrypto.so"
+        <resource-file src="src/android/libs/armeabi/libmediadatacryto.so" target="jniLibs/armeabi/libmediadatacryto.so"/>
+        <resource-file src="src/android/libs/armeabi/libsoundtouch.so" target="jniLibs/armeabi/libsoundtouch.so"/>
+        <resource-file src="src/android/libs/armeabi/libxmediaplayer.so" target="jniLibs/armeabi/libxmediaplayer.so"/>
+        <!--<resource-file src="src/android/libs/armeabi/libxmediaplayer_x.so" target="jniLibs/armeabi/libxmediaplayer_x.so"/>-->
+        <resource-file src="src/android/libs/armeabi/libxmopendatacrypto.so"
                        target="jniLibs/armeabi/libxmopendatacrypto.so"/>
-        <!--<resource-file src="libs/android/arm64-v8a/libxmediaplayerv7.so"
+        <!--<resource-file src="src/android/libs/arm64-v8a/libxmediaplayerv7.so"
                        target="jniLibs/arm64-v8a/libxmediaplayerv7.so"/>-->
 
-        <resource-file src="libs/android/armeabi/libmediadatacryto.so" target="jniLibs/armeabi-v7a/libmediadatacryto.so"/>
-        <resource-file src="libs/android/armeabi/libsoundtouch.so" target="jniLibs/armeabi-v7a/libsoundtouch.so"/>
-        <resource-file src="libs/android/armeabi/libxmediaplayerv7.so" target="jniLibs/armeabi-v7a/libxmediaplayerv7.so"/>
-        <resource-file src="libs/android/armeabi/libxmopendatacrypto.so"
+        <resource-file src="src/android/libs/armeabi/libmediadatacryto.so" target="jniLibs/armeabi-v7a/libmediadatacryto.so"/>
+        <resource-file src="src/android/libs/armeabi/libsoundtouch.so" target="jniLibs/armeabi-v7a/libsoundtouch.so"/>
+        <resource-file src="src/android/libs/armeabi/libxmediaplayerv7.so" target="jniLibs/armeabi-v7a/libxmediaplayerv7.so"/>
+        <resource-file src="src/android/libs/armeabi/libxmopendatacrypto.so"
                        target="jniLibs/armeabi-v7a/libxmopendatacrypto.so"/>
 
-        <resource-file src="res/android/drawable/next_play_selector_transparent.xml" target="res/drawable/next_play_selector_transparent.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_dark_next_normal_xml.xml" target="res/drawable/notify_btn_dark_next_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_dark_pause2_normal_xml.xml" target="res/drawable/notify_btn_dark_pause2_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_dark_pause_normal_xml.xml" target="res/drawable/notify_btn_dark_pause_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_dark_play2_normal_xml.xml" target="res/drawable/notify_btn_dark_play2_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_dark_play_normal_xml.xml" target="res/drawable/notify_btn_dark_play_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_dark_prev_normal_xml.xml" target="res/drawable/notify_btn_dark_prev_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_light_next_normal_xml.xml" target="res/drawable/notify_btn_light_next_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_light_pause2_normal_xml.xml" target="res/drawable/notify_btn_light_pause2_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_light_pause_normal_xml.xml" target="res/drawable/notify_btn_light_pause_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_light_play2_normal_xml.xml" target="res/drawable/notify_btn_light_play2_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_light_play_normal_xml.xml" target="res/drawable/notify_btn_light_play_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_btn_light_prev_normal_xml.xml" target="res/drawable/notify_btn_light_prev_normal_xml.xml"/>
-        <resource-file src="res/android/drawable/notify_play_xml.xml" target="res/drawable/notify_play_xml.xml"/>
-        <resource-file src="res/android/drawable/pre_play_selector_transparent.xml" target="res/drawable/pre_play_selector_transparent.xml"/>
-        <resource-file src="res/android/drawable/widget_play_xml.xml" target="res/drawable/widget_play_xml.xml"/>
+        <resource-file src="src/android/res/drawable/next_play_selector_transparent.xml" target="res/drawable/next_play_selector_transparent.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_dark_next_normal_xml.xml" target="res/drawable/notify_btn_dark_next_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_dark_pause2_normal_xml.xml" target="res/drawable/notify_btn_dark_pause2_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_dark_pause_normal_xml.xml" target="res/drawable/notify_btn_dark_pause_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_dark_play2_normal_xml.xml" target="res/drawable/notify_btn_dark_play2_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_dark_play_normal_xml.xml" target="res/drawable/notify_btn_dark_play_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_dark_prev_normal_xml.xml" target="res/drawable/notify_btn_dark_prev_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_light_next_normal_xml.xml" target="res/drawable/notify_btn_light_next_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_light_pause2_normal_xml.xml" target="res/drawable/notify_btn_light_pause2_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_light_pause_normal_xml.xml" target="res/drawable/notify_btn_light_pause_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_light_play2_normal_xml.xml" target="res/drawable/notify_btn_light_play2_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_light_play_normal_xml.xml" target="res/drawable/notify_btn_light_play_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_btn_light_prev_normal_xml.xml" target="res/drawable/notify_btn_light_prev_normal_xml.xml"/>
+        <resource-file src="src/android/res/drawable/notify_play_xml.xml" target="res/drawable/notify_play_xml.xml"/>
+        <resource-file src="src/android/res/drawable/pre_play_selector_transparent.xml" target="res/drawable/pre_play_selector_transparent.xml"/>
+        <resource-file src="src/android/res/drawable/widget_play_xml.xml" target="res/drawable/widget_play_xml.xml"/>
 
-        <resource-file src="res/android/drawable-hdpi/image_default_album_s.png" target="res/drawable-hdpi/image_default_album_s.png"/>
-        <resource-file src="res/android/drawable-hdpi/notification_default.png" target="res/drawable-hdpi/notification_default.png"/>
-        <resource-file src="res/android/drawable-hdpi/notify_btn_next_pressed.png" target="res/drawable-hdpi/notify_btn_next_pressed.png"/>
-        <resource-file src="res/android/drawable-hdpi/notify_btn_pause2_pressed.png" target="res/drawable-hdpi/notify_btn_pause2_pressed.png"/>
-        <resource-file src="res/android/drawable-hdpi/notify_btn_pause_pressed.png" target="res/drawable-hdpi/notify_btn_pause_pressed.png"/>
-        <resource-file src="res/android/drawable-hdpi/notify_btn_play2_pressed.png" target="res/drawable-hdpi/notify_btn_play2_pressed.png"/>
-        <resource-file src="res/android/drawable-hdpi/notify_btn_play_pressed.png" target="res/drawable-hdpi/notify_btn_play_pressed.png"/>
-        <resource-file src="res/android/drawable-hdpi/notify_btn_prev_pressed.png" target="res/drawable-hdpi/notify_btn_prev_pressed.png"/>
+        <resource-file src="src/android/res/drawable-hdpi/image_default_album_s.png" target="res/drawable-hdpi/image_default_album_s.png"/>
+        <resource-file src="src/android/res/drawable-hdpi/notification_default.png" target="res/drawable-hdpi/notification_default.png"/>
+        <resource-file src="src/android/res/drawable-hdpi/notify_btn_next_pressed.png" target="res/drawable-hdpi/notify_btn_next_pressed.png"/>
+        <resource-file src="src/android/res/drawable-hdpi/notify_btn_pause2_pressed.png" target="res/drawable-hdpi/notify_btn_pause2_pressed.png"/>
+        <resource-file src="src/android/res/drawable-hdpi/notify_btn_pause_pressed.png" target="res/drawable-hdpi/notify_btn_pause_pressed.png"/>
+        <resource-file src="src/android/res/drawable-hdpi/notify_btn_play2_pressed.png" target="res/drawable-hdpi/notify_btn_play2_pressed.png"/>
+        <resource-file src="src/android/res/drawable-hdpi/notify_btn_play_pressed.png" target="res/drawable-hdpi/notify_btn_play_pressed.png"/>
+        <resource-file src="src/android/res/drawable-hdpi/notify_btn_prev_pressed.png" target="res/drawable-hdpi/notify_btn_prev_pressed.png"/>
 
-        <resource-file src="res/android/drawable-xhdpi/next_icon_transparent_disable.png" target="res/drawable-xhdpi/next_icon_transparent_disable.png"/>
-        <resource-file src="res/android/drawable-xhdpi/next_icon_transparent_normal.png" target="res/drawable-xhdpi/next_icon_transparent_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/next_icon_transparent_pressed.png" target="res/drawable-xhdpi/next_icon_transparent_pressed.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notification_default.png" target="res/drawable-xhdpi/notification_default.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notification_icon.png" target="res/drawable-xhdpi/notification_icon.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_close.png" target="res/drawable-xhdpi/notify_btn_close.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_dark_next_normal.png" target="res/drawable-xhdpi/notify_btn_dark_next_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_dark_pause2_normal.png" target="res/drawable-xhdpi/notify_btn_dark_pause2_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_dark_pause_normal.png" target="res/drawable-xhdpi/notify_btn_dark_pause_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_dark_play2_normal.png" target="res/drawable-xhdpi/notify_btn_dark_play2_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_dark_play_normal.png" target="res/drawable-xhdpi/notify_btn_dark_play_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_dark_prev_normal.png" target="res/drawable-xhdpi/notify_btn_dark_prev_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_light_next_normal.png" target="res/drawable-xhdpi/notify_btn_light_next_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_light_pause2_normal.png" target="res/drawable-xhdpi/notify_btn_light_pause2_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_light_pause_normal.png" target="res/drawable-xhdpi/notify_btn_light_pause_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_light_play2_normal.png" target="res/drawable-xhdpi/notify_btn_light_play2_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_light_play_normal.png" target="res/drawable-xhdpi/notify_btn_light_play_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_light_prev_normal.png" target="res/drawable-xhdpi/notify_btn_light_prev_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_next_pressed.png" target="res/drawable-xhdpi/notify_btn_next_pressed.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_pause2_pressed.png" target="res/drawable-xhdpi/notify_btn_pause2_pressed.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_play2_pressed.png" target="res/drawable-xhdpi/notify_btn_play2_pressed.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_btn_prev_pressed.png" target="res/drawable-xhdpi/notify_btn_prev_pressed.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_play_normal.png" target="res/drawable-xhdpi/notify_play_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/notify_play_pressed.png" target="res/drawable-xhdpi/notify_play_pressed.png"/>
-        <resource-file src="res/android/drawable-xhdpi/pre_icon_transparent_disable.png" target="res/drawable-xhdpi/pre_icon_transparent_disable.png"/>
-        <resource-file src="res/android/drawable-xhdpi/pre_icon_transparent_normal.png" target="res/drawable-xhdpi/pre_icon_transparent_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/pre_icon_transparent_pressed.png" target="res/drawable-xhdpi/pre_icon_transparent_pressed.png"/>
-        <resource-file src="res/android/drawable-xhdpi/ting.png" target="res/drawable-xhdpi/ting.png"/>
-        <resource-file src="res/android/drawable-xhdpi/widget_pause_normal.png" target="res/drawable-xhdpi/widget_pause_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/widget_pause_pressed.png" target="res/drawable-xhdpi/widget_pause_pressed.png"/>
-        <resource-file src="res/android/drawable-xhdpi/widget_play_normal.png" target="res/drawable-xhdpi/widget_play_normal.png"/>
-        <resource-file src="res/android/drawable-xhdpi/widget_play_pressed.png" target="res/drawable-xhdpi/widget_play_pressed.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/next_icon_transparent_disable.png" target="res/drawable-xhdpi/next_icon_transparent_disable.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/next_icon_transparent_normal.png" target="res/drawable-xhdpi/next_icon_transparent_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/next_icon_transparent_pressed.png" target="res/drawable-xhdpi/next_icon_transparent_pressed.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notification_default.png" target="res/drawable-xhdpi/notification_default.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notification_icon.png" target="res/drawable-xhdpi/notification_icon.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_close.png" target="res/drawable-xhdpi/notify_btn_close.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_dark_next_normal.png" target="res/drawable-xhdpi/notify_btn_dark_next_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_dark_pause2_normal.png" target="res/drawable-xhdpi/notify_btn_dark_pause2_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_dark_pause_normal.png" target="res/drawable-xhdpi/notify_btn_dark_pause_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_dark_play2_normal.png" target="res/drawable-xhdpi/notify_btn_dark_play2_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_dark_play_normal.png" target="res/drawable-xhdpi/notify_btn_dark_play_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_dark_prev_normal.png" target="res/drawable-xhdpi/notify_btn_dark_prev_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_light_next_normal.png" target="res/drawable-xhdpi/notify_btn_light_next_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_light_pause2_normal.png" target="res/drawable-xhdpi/notify_btn_light_pause2_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_light_pause_normal.png" target="res/drawable-xhdpi/notify_btn_light_pause_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_light_play2_normal.png" target="res/drawable-xhdpi/notify_btn_light_play2_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_light_play_normal.png" target="res/drawable-xhdpi/notify_btn_light_play_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_light_prev_normal.png" target="res/drawable-xhdpi/notify_btn_light_prev_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_next_pressed.png" target="res/drawable-xhdpi/notify_btn_next_pressed.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_pause2_pressed.png" target="res/drawable-xhdpi/notify_btn_pause2_pressed.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_play2_pressed.png" target="res/drawable-xhdpi/notify_btn_play2_pressed.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_btn_prev_pressed.png" target="res/drawable-xhdpi/notify_btn_prev_pressed.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_play_normal.png" target="res/drawable-xhdpi/notify_play_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/notify_play_pressed.png" target="res/drawable-xhdpi/notify_play_pressed.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/pre_icon_transparent_disable.png" target="res/drawable-xhdpi/pre_icon_transparent_disable.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/pre_icon_transparent_normal.png" target="res/drawable-xhdpi/pre_icon_transparent_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/pre_icon_transparent_pressed.png" target="res/drawable-xhdpi/pre_icon_transparent_pressed.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/ting.png" target="res/drawable-xhdpi/ting.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/widget_pause_normal.png" target="res/drawable-xhdpi/widget_pause_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/widget_pause_pressed.png" target="res/drawable-xhdpi/widget_pause_pressed.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/widget_play_normal.png" target="res/drawable-xhdpi/widget_play_normal.png"/>
+        <resource-file src="src/android/res/drawable-xhdpi/widget_play_pressed.png" target="res/drawable-xhdpi/widget_play_pressed.png"/>
 
-        <resource-file src="res/android/layout/view_notify_dark_play.xml" target="res/layout/view_notify_dark_play.xml"/>
-        <resource-file src="res/android/layout/view_notify_dark_play_big.xml" target="res/layout/view_notify_dark_play_big.xml"/>
-        <resource-file src="res/android/layout/view_notify_play.xml" target="res/layout/view_notify_play.xml"/>
-        <resource-file src="res/android/layout/view_notify_play_big.xml" target="res/layout/view_notify_play_big.xml"/>
+        <resource-file src="src/android/res/layout/view_notify_dark_play.xml" target="res/layout/view_notify_dark_play.xml"/>
+        <resource-file src="src/android/res/layout/view_notify_dark_play_big.xml" target="res/layout/view_notify_dark_play_big.xml"/>
+        <resource-file src="src/android/res/layout/view_notify_play.xml" target="res/layout/view_notify_play.xml"/>
+        <resource-file src="src/android/res/layout/view_notify_play_big.xml" target="res/layout/view_notify_play_big.xml"/>
 
-        <resource-file src="res/android/values/styles.xml" target="res/values/xmly_styles.xml"/>
-        <resource-file src="res/android/values-v21/styles.xml" target="res/values-v21/xmly_styles.xml"/>
+        <resource-file src="src/android/res/values/styles.xml" target="res/values/xmly_styles.xml"/>
+        <resource-file src="src/android/res/values-v21/styles.xml" target="res/values-v21/xmly_styles.xml"/>
     </platform>
 
     <!-- ios -->
