@@ -446,8 +446,17 @@ function getAccessToken() {
   }
 }
 
-var ximalaya = {
+var _callback;
 
+var ximalaya = {
+  /**
+   *
+   * @param app_key
+   * @param pack_id
+   * @param app_secret
+   * @param success
+   * @param error
+   */
   init: function (app_key, pack_id, app_secret, success, error) {
     CONFIG.app_key = app_key;
     CONFIG.pack_id = pack_id;
@@ -492,8 +501,56 @@ var ximalaya = {
         //   return data;
         // })
       })
+  },
+  /**
+   *
+   * @param name
+   * @param opts
+   * @param success
+   * @param error
+   */
+  player: function(name, opts, success, error) {
+    if (name === 'onStatus') {
+      console.log('add callback');
+      _callback = opts;
+    }
+    // exec(function(p) { success && success(p); }, error, 'Ximalaya', 'player.' + name, [opts]);
+  },
+  /**
+   *
+   * @param tracks
+   * @param startIndex
+   * @param success
+   * @param error
+   */
+  playList: function(tracks, startIndex, success, error) {
+    // exec(success, error, 'Ximalaya', 'playList', [tracks, startIndex]);
+  },
+  /**
+   *
+   * @param id
+   * @param msgType
+   * @param value
+   */
+  onStatus: function (id, msgType, value) {
+    if (_callback) {
+      _callback(value);
+    } else {
+      if (console.error) {
+        console.error("Received Ximalaya.onStatus callback for unknown media : " + id);
+      }
+    }
+  },
+  /**
+   *
+   * @param third_uid
+   * @param third_token
+   * @param success
+   * @param error
+   */
+  oauth2: function (third_uid, third_token, success, error) {
+    // exec(success, error, 'Ximalaya', 'oauth2', [third_uid, third_token]);
   }
-
 };
 
 module.exports = ximalaya;
